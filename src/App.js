@@ -1,5 +1,6 @@
 import Login from './pages/Login';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -23,6 +24,8 @@ function App() {
           
         </Routes>
       </div>
+
+      <Footer/>
     </Router>
   );
 }

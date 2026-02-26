@@ -19,6 +19,8 @@ function Login() {
     // anadir una condicion, si el user ya este conectado
     // y acceder a esta pagina, exhibe un mensaje y no 
     // permite el login
+
+    // permitir tambien que el usuario haga su registro
     <div className="login-container">
       <form className="login-form" onSubmit={handleEntrar}>
         <h2>Login to play!</h2>
