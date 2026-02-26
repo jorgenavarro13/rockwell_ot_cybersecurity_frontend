@@ -9,14 +9,19 @@ function Login() {
   
   const handleEntrar = (evento) => {
     evento.preventDefault(); // do not reload
+
+    //insertar aquí la comunicacion con backend
     
     console.log("logging-in with ", email, password);
   };
 
   return (
+    // anadir una condicion, si el user ya este conectado
+    // y acceder a esta pagina, exhibe un mensaje y no 
+    // permite el login
     <div className="login-container">
       <form className="login-form" onSubmit={handleEntrar}>
-        <h2>Login to save your progress</h2>
+        <h2>Login to play!</h2>
         
         <div className="input-group">
           <label htmlFor="email">E-mail: </label>
