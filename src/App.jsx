@@ -1,4 +1,5 @@
 import Login from './pages/Login';
+import Register from './pages/Register';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import React, { useState } from 'react';
@@ -20,6 +21,14 @@ function App() {
           <Route 
             path="/login" 
             element={<Login />} 
+          />
+          
+        </Routes>
+
+        <Routes>
+          <Route 
+            path="/register" 
+            element={<Register />} 
           />
           
         </Routes>

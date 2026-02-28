@@ -20,7 +20,6 @@ function Login() {
     // y acceder a esta pagina, exhibe un mensaje y no 
     // permite el login
 
-    // permitir tambien que el usuario haga su registro
     <div className="login-container">
       <form className="login-form" onSubmit={handleEntrar}>
         <h2>Login to play!</h2>
@@ -50,6 +49,11 @@ function Login() {
         </div>
 
         <button type="submit">Login</button>
+
+        <div className="register-link">
+          <a href="./register">Register (I'm a new user)</a>
+
+        </div>
       </form>
     </div>
   );
