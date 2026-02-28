@@ -30,7 +30,7 @@ function Navbar({ isLoggedIn, userName }) {
 
         {/* Able to play if logged */}
         {isLoggedIn && (
-          <Link to="/videogame" className="nav-link">
+          <Link to="/game" className="nav-link">
             Videogame
           </Link>
         )}

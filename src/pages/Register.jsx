@@ -108,6 +108,7 @@ function Register() {
 
         <div className="input-group">
           <label>Country:</label>
+          {/* anadir aqui una manera de que haciendo clic se abra la lista de paises */}
 
           <Combobox value={selectedCountry} onChange={setSelectedCountry}>
             <div className="combobox-container">
