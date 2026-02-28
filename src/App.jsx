@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   // mock:
-  const [usuarioLogado, setUsuarioLogado] = useState(true);
+  const [usuarioLogado, setUsuarioLogado] = useState(false);
   const [nomeUsuario, setNomeUsuario] = useState('nome');
 
   return (

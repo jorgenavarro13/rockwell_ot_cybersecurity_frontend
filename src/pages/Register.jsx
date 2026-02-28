@@ -16,8 +16,11 @@ const countryList = Object.entries(
 
 function Register() {
   
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [relationToRockwell, setRelationToRockwell] = useState('');
+  const [birthDate, setBirthDate] = useState('');
 
   const [selectedCountry, setSelectedCountry] = useState(countryList[0]);
   const [query, setQuery] = useState('');
@@ -32,7 +35,7 @@ function Register() {
   const handleRegistrar = (evento) => {
     evento.preventDefault();
 
-    console.log("register with ", email, password, selectedCountry);
+    console.log("register with ", name, email, password, relationToRockwell, birthDate, selectedCountry);
   };
 
   return (
@@ -40,6 +43,18 @@ function Register() {
       <form className="register-form" onSubmit={handleRegistrar}>
         <h2>Register to play!</h2>
         
+        <div className="input-group">
+          <label htmlFor="name">Name: </label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Insert your name"
+            required
+          />
+        </div>
+
         <div className="input-group">
           <label htmlFor="email">E-mail: </label>
           <input
@@ -60,6 +75,33 @@ function Register() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Insert your password"
+            required
+          />
+        </div>
+
+        <div className="input-group">
+          <label htmlFor="relationToRockwell">Relation to Rockwell: </label>
+          <select
+            id="relationToRockwell"
+            value={relationToRockwell}
+            onChange={(e) => setRelationToRockwell(e.target.value)}
+            required
+          >
+            <option value="">Select your relation</option>
+            <option value="Employee">Employee</option>
+            <option value="Client">Client</option>
+            <option value="Not related">Not related</option>
+          </select>
+        </div>
+
+        <div className="input-group">
+          <label htmlFor="birthDate">Birth Date: </label>
+          <input
+            type="date"
+            id="birthDate"
+            value={birthDate}
+            onChange={(e) => setBirthDate(e.target.value)}
+            max="2026-02-27"
             required
           />
         </div>
