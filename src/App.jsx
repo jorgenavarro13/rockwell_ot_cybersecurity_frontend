@@ -2,6 +2,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Game from './pages/Game';
 import Ranking from './pages/Ranking';
+import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import React, { useState } from 'react';
@@ -20,6 +21,11 @@ function App() {
       {/* // pages: */}
       <div className="paginas">
         <Routes>
+          <Route 
+            path="/" 
+            element={<Home isLoggedIn={usuarioLogado} />} 
+          />
+
           <Route 
             path="/login" 
             element={<Login />} 
