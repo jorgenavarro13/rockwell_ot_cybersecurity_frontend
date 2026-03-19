@@ -3,6 +3,7 @@ import { Combobox } from "@headlessui/react";
 import countries from "i18n-iso-countries";
 import en from "i18n-iso-countries/langs/en.json";
 import './Register.css';
+import {registerUser} from '../services/register.js'
 
 countries.registerLocale(en);
 
@@ -34,8 +35,20 @@ function Register() {
 
   const handleRegistrar = (evento) => {
     evento.preventDefault();
-
-    console.log("register with ", name, email, password, relationToRockwell, birthDate, selectedCountry);
+    
+    const Usuario = {
+      name:name,
+      country:selectedCountry, 
+      email:email,
+      password:password,
+      phone:"323456789", // TODO: Define a slot for number, optional slot
+      typeOfUser:"Employee", 
+      company:"Rockwell", // TODO: Define a slot for company, optional slot
+      birthday:birthDate,
+    };
+    
+    registerUser(Usuario);
+    evento.preventDefault(); // do not reload
   };
 
   return (
@@ -87,6 +100,7 @@ function Register() {
             onChange={(e) => setRelationToRockwell(e.target.value)}
             required
           >
+            // These options are just examples, we need an array of possible relations to rockwell to map here
             <option value="">Select your relation</option>
             <option value="Employee">Employee</option>
             <option value="Client">Client</option>
