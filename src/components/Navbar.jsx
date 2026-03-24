@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 
-function Navbar({ isLoggedIn, userName }) {
+function Navbar({ isLoggedIn, userName, isAdmin }) {
   return (
     <nav className="navbar-container">
       <div className="navbar-left">
@@ -32,6 +32,12 @@ function Navbar({ isLoggedIn, userName }) {
         {isLoggedIn && (
           <Link to="/game" className="nav-link">
             Videogame
+          </Link>
+        )}
+
+        {isLoggedIn && isAdmin && (
+          <Link to="/dashboard" className="nav-link">
+            Dashboard
           </Link>
         )}
       </div>
