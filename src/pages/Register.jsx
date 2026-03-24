@@ -22,6 +22,8 @@ function Register() {
   const [password, setPassword] = useState('');
   const [relationToRockwell, setRelationToRockwell] = useState('');
   const [birthDate, setBirthDate] = useState('');
+  const [phone, setPhone] = useState('');
+  const [company, setCompany]= useState('');
 
   const [selectedCountry, setSelectedCountry] = useState(countryList[0]);
   const [query, setQuery] = useState('');
@@ -35,15 +37,15 @@ function Register() {
 
   const handleRegistrar = (evento) => {
     evento.preventDefault();
-    
+
     const Usuario = {
       name:name,
-      country:selectedCountry, 
+      country:selectedCountry.name, 
       email:email,
       password:password,
-      phone:"323456789", // TODO: Define a slot for number, optional slot
-      typeOfUser:"Employee", 
-      company:"Rockwell", // TODO: Define a slot for company, optional slot
+      phone:phone,
+      typeOfUser:relationToRockwell, 
+      company:company,
       birthday:birthDate,
     };
     
@@ -81,6 +83,17 @@ function Register() {
         </div>
 
         <div className="input-group">
+          <label htmlFor="phone">Phone: </label>
+          <input
+            type="tel"
+            id="phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="Insert your phone"
+          />
+        </div>
+
+        <div className="input-group">
           <label htmlFor="password">Password: </label>
           <input
             type="password"
@@ -107,6 +120,19 @@ function Register() {
             <option value="Not related">Not related</option>
           </select>
         </div>
+
+        { relationToRockwell === "Client" &&
+          <div className="input-group">
+            <label htmlFor="company">Company: </label>
+            <input
+              type="text"
+              id="company"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+              placeholder="Insert your company"
+            />
+          </div>
+        }
 
         <div className="input-group">
           <label htmlFor="birthDate">Birth Date: </label>
