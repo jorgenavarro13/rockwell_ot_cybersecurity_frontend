@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 function Navbar({ isLoggedIn, userName, isAdmin }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <nav className="navbar-container">
       <div className="navbar-left">
@@ -12,10 +18,14 @@ function Navbar({ isLoggedIn, userName, isAdmin }) {
             alt="Rockwell Logo" 
           />
         </Link>
+        <div className="menu-icon" onClick={toggleMenu}>
+          {isMenuOpen ? "✕" : "☰"}
+        </div>
       </div>
 
-      <div className="navbar-center">
-        <a 
+      <div className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
+        <div className="navbar-center">
+          <a 
           href="https://www.rockwellautomation.com/" 
           target="_blank" 
           rel="noopener noreferrer"
@@ -51,6 +61,7 @@ function Navbar({ isLoggedIn, userName, isAdmin }) {
             Login
           </Link>
         )}
+      </div>
       </div>
     </nav>
   );

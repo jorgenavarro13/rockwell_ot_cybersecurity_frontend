@@ -12,7 +12,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 function App() {
   // mock:
   const [usuarioLogado] = useState(true);
-  const [nomeUsuario] = useState('Chespirito');
+  const [nomeUsuario] = useState('César');
   const [usuarioAdmin] = useState(true);
 
   return (
