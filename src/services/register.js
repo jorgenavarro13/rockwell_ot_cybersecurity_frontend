@@ -3,6 +3,7 @@ export function registerUser(Usuario){
   console.log(import.meta.env.VITE_API)
     fetch(`${import.meta.env.VITE_API}/login`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
