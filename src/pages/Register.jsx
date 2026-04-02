@@ -40,7 +40,7 @@ function Register() {
 
     const Usuario = {
       name:name,
-      country:selectedCountry.name, 
+      country:selectedCountry, 
       email:email,
       password:password,
       phone:phone,
@@ -59,7 +59,7 @@ function Register() {
         <h2>Register to play!</h2>
         
         <div className="input-group">
-          <label htmlFor="name">Name: </label>
+          <label htmlFor="name">Name: *</label>
           <input
             type="text"
             id="name"
@@ -71,7 +71,7 @@ function Register() {
         </div>
 
         <div className="input-group">
-          <label htmlFor="email">E-mail: </label>
+          <label htmlFor="email">E-mail: *</label>
           <input
             type="email"
             id="email"
@@ -94,7 +94,7 @@ function Register() {
         </div>
 
         <div className="input-group">
-          <label htmlFor="password">Password: </label>
+          <label htmlFor="password">Password: * </label>
           <input
             type="password"
             id="password"
@@ -106,7 +106,7 @@ function Register() {
         </div>
 
         <div className="input-group">
-          <label htmlFor="relationToRockwell">Relation to Rockwell: </label>
+          <label htmlFor="relationToRockwell">Relation to Rockwell: * </label>
           <select
             id="relationToRockwell"
             value={relationToRockwell}
@@ -142,7 +142,7 @@ function Register() {
             value={birthDate}
             onChange={(e) => setBirthDate(e.target.value)}
             max="2026-02-27"
-            required
+            
           />
         </div>
 
@@ -191,6 +191,7 @@ function Register() {
 
         <button type="submit">Register</button>
 
+        <p>Already have an account?  <a href="/login" className="login-link">Log in</a></p>
       </form>
     </div>
   );
