@@ -6,14 +6,39 @@ import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import checkSession from './services/session.js';
 
 function App() {
   // mock:
-  const [usuarioLogado] = useState(true);
-  const [nomeUsuario] = useState('César');
-  const [usuarioAdmin] = useState(true);
+  const [usuarioLogado,setLoggin] = useState(false);
+  const [nomeUsuario,setUsername] = useState('');
+  const [usuarioAdmin,setPermissions] = useState(false);
+
+  useEffect(() => { // Use effect se ejecuta al montar el componente, 
+  // ideal para llamadas a APIs o tareas de inicialización
+    const fetchSession = async () => {
+      const data = await checkSession();
+      console.log(data);
+
+      if( data?.activeSession){
+        setLoggin(true);
+      }
+
+      if( data?.data?.username){
+        setUsername(data.data.username)
+      }
+      
+      if( data?.data?.role === 1){ // hay que cambiar este valor hardcodeado, tiene  que regresar un booleano el backend
+        setPermissions(true);
+      }
+    };
+    
+    fetchSession();
+
+  }, []);
+
 
   return (
     <Router>
