@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Combobox } from "@headlessui/react";
 import countries from "i18n-iso-countries";
 import en from "i18n-iso-countries/langs/en.json";
 import './Register.css';
 import {registerUser} from '../services/register.js'
+import { verifyEmailDuplicates } from '../services/verifyEmailDuplicates.js';
 
 countries.registerLocale(en);
 
@@ -19,6 +20,7 @@ function Register() {
   
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
   const [relationToRockwell, setRelationToRockwell] = useState('');
   const [birthDate, setBirthDate] = useState('');
@@ -27,6 +29,22 @@ function Register() {
 
   const [selectedCountry, setSelectedCountry] = useState(countryList[0]);
   const [query, setQuery] = useState('');
+
+  useEffect(() => {
+      if (!email) return; 
+      
+      const timeoutId = setTimeout(async () => {
+        const exists = await verifyEmailDuplicates(email);
+        console.log(exists);
+        if(exists){
+          setEmailError('This email is already in use.');
+        } else {
+          setEmailError('');
+        }
+      }, 500);
+
+      return () => clearTimeout(timeoutId);
+  }, [email]);
 
   const filteredCountries =
     query === ""
@@ -82,6 +100,8 @@ function Register() {
           />
         </div>
 
+        {emailError && <div className="error">{emailError}</div>}
+
         <div className="input-group">
           <label htmlFor="phone">Phone: </label>
           <input
@@ -130,6 +150,7 @@ function Register() {
               value={company}
               onChange={(e) => setCompany(e.target.value)}
               placeholder="Insert your company"
+              required
             />
           </div>
         }

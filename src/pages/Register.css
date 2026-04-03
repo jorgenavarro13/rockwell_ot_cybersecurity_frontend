@@ -155,3 +155,11 @@
   object-fit: cover;
   pointer-events: none;
 }
+
+.error {
+  color: #c73030;
+  font-size: 0.7rem;
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+  background-color: #f6c9cd;
+}
