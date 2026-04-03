@@ -93,3 +93,17 @@
   text-align: center;
   margin-top: 1rem;
 }
+
+.register-link a {
+  color: #e11939;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.error {
+  margin-top: 1rem;
+  color: #e11939;
+  font-size: 0.9rem;
+  text-align: center;
+  background-color: #ffe5e5;
+}

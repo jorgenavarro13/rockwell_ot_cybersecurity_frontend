@@ -1,18 +1,26 @@
 import React, { useState } from 'react';
 import './Login.css';
+import { loginUser } from '../services/login.js';
 
 function Login() {
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   
-  const handleEntrar = (evento) => {
+  const handleEntrar = async (evento) => {
     evento.preventDefault(); // do not reload
-
-    //insertar aquí la comunicacion con backend
+    console.log( `Email: ${email}, Password: ${password}`); // for debugging
+    const res = await loginUser(email, password);
     
-    console.log("logging-in with ", email, password);
+    if(res?.success){
+      window.location.href = "/game";
+    } else {
+      setError('Invalid email or password. Please try again.');
+    }
+
+    evento.preventDefault();
   };
 
   return (
@@ -47,6 +55,8 @@ function Login() {
             required
           />
         </div>
+
+        {error && <div className="error">{error}</div>}
 
         <button type="submit">Login</button>
 
