@@ -1,28 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
+import {malware,ransomware,ship, phishing, legacy} from '../assets/images.js';
 
 const threats = [
   {
-    icon: '🦠',
+    icon: malware,
     title: 'Malware & Ransomware',
     description:
       'Attacks designed to halt industrial operations or demand ransom to resume critical services, causing massive financial and operational damage.',
   },
   {
-    icon: '🎣',
+    icon: phishing,
     title: 'Phishing & Social Engineering',
     description:
       'Employees remain the primary attack vector. Deceptive communications trick personnel into revealing credentials or executing malicious actions.',
   },
   {
-    icon: '🔓',
+    icon: ransomware,
     title: 'Insider Threats',
     description:
       'Personnel with legitimate access can cause intentional or accidental harm, making internal monitoring and access control essential.',
   },
   {
-    icon: '⚙️',
+    icon: legacy,
     title: 'Legacy Systems',
     description:
       'Outdated hardware and software without modern security capabilities create exploitable vulnerabilities across the OT environment.',
@@ -75,7 +76,7 @@ function Home({ isLoggedIn }) {
             <div className="signal-ring ring-1" />
             <div className="signal-ring ring-2" />
             <div className="signal-ring ring-3" />
-            <div className="illustration-icon">🛡️</div>
+            <div className="illustration-icon"><img src={ship} alt="loading" /></div>
           </div>
         </div>
       </section>
@@ -126,7 +127,7 @@ function Home({ isLoggedIn }) {
           <div className="threats-grid">
             {threats.map((threat, i) => (
               <div className="threat-card" key={i}>
-                <div className="threat-icon">{threat.icon}</div>
+                <div className="threat-icon"><img src={threat.icon} alt="loading" /></div>
                 <h3 className="threat-title">{threat.title}</h3>
                 <p className="threat-description">{threat.description}</p>
               </div>
