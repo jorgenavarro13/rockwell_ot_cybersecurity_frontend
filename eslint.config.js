@@ -7,7 +7,6 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 export default defineConfig([
   globalIgnores(['dist']),
   {
-    base: '/rockwell_ot_cybersecurity_frontend/',
     files: ['**/*.{js,jsx}'],
     extends: [
       js.configs.recommended,
