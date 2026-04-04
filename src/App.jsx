@@ -30,7 +30,7 @@ function App() {
         setUsername(data.data.username)
       }
       
-      if( data?.data?.role === 1){ // hay que cambiar este valor hardcodeado, tiene  que regresar un booleano el backend
+      if( data?.isAdmin){ // hay que cambiar este valor hardcodeado, tiene  que regresar un booleano el backend
         setPermissions(true);
       }
     };
@@ -59,17 +59,17 @@ function App() {
 
           <Route 
             path="/login" 
-            element={<Login />} 
+            element={usuarioLogado ? <Navigate to="/" replace /> : <Login />} 
           />
 
           <Route 
             path="/register" 
-            element={<Register />} 
+            element={usuarioLogado ? <Navigate to="/" replace /> : <Register />} 
           />
 
           <Route 
             path="/game" 
-            element={<Game />} 
+            element={usuarioLogado ? <Game /> : <Navigate to="/login" replace />} 
           />
 
           <Route 
