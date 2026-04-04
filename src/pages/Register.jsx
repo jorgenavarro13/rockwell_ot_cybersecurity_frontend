@@ -5,6 +5,7 @@ import en from "i18n-iso-countries/langs/en.json";
 import './Register.css';
 import {registerUser} from '../services/register.js'
 import { verifyEmailDuplicates } from '../services/verifyEmailDuplicates.js';
+import { Link } from 'react-router-dom';
 
 countries.registerLocale(en);
 
@@ -212,7 +213,7 @@ function Register() {
 
         <button type="submit">Register</button>
 
-        <p>Already have an account?  <a href="/login" className="login-link">Log in</a></p>
+        <p>Already have an account?  <Link to="/login" className="login-link">Log in</Link></p>
       </form>
     </div>
   );
