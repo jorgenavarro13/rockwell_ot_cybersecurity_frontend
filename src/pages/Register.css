@@ -1,0 +1,165 @@
+* {
+  box-sizing: border-box;
+}
+
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background-color: #f2f3f5; 
+  font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.register-form {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 420px;
+  padding: 2.5rem;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-top: 5px solid #e11939; 
+}
+
+.register-form h2 {
+  color: #333333;
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+.input-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333333;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  color: #333333;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+  outline: none;
+  border-color: #003b5c;
+  box-shadow: 0 0 0 3px rgba(0, 59, 92, 0.1);
+}
+
+.input-group input::placeholder {
+  color: #888888;
+}
+
+.input-group select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+
+.register-form button[type="submit"] {
+  width: 100%;
+  padding: 0.85rem;
+  background-color: #e11939;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 1rem;
+}
+
+.register-form button[type="submit"]:hover {
+  background-color: #c0142f; 
+}
+
+@media (max-width: 480px) {
+  .register-form {
+    padding: 1.5rem;
+    max-width: 90%;
+  }
+}
+
+.combobox-container {
+  position: relative;
+}
+
+.input-group .country-input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  font-size: 1rem;
+  color: #333333;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+}
+
+.country-options {
+  position: absolute;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 4px;
+  z-index: 10;
+}
+
+.country-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.country-option:hover {
+  background-color: #f0f0f0;
+}
+
+.flag {
+  width: 20px;
+  height: 15px;
+  object-fit: cover;
+}
+
+.selected-flag {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 15px;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.error {
+  color: #c73030;
+  font-size: 0.7rem;
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+  background-color: #f6c9cd;
+}

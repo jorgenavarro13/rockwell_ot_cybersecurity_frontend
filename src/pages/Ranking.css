@@ -1,0 +1,283 @@
+* {
+  box-sizing: border-box;
+}
+
+/* colors inspired by rockwell's website */
+:root {
+  --primary-black: #000000;
+  --primary-white: #ffffff;
+  --primary-blue: #0066cc;
+  --secondary-gray: #6c757d;
+  --gradient-instagram: linear-gradient(45deg, #5067d8, #726dde, #833ab4, #c13584, #e1306c, #f24444);
+  --gradient-warm: linear-gradient(90deg, #f37021 0%, #d11242 50%, #a60033 100%);
+}
+
+.ranking-container {
+  min-height: 80vh;
+  background-color: var(--primary-white);
+  padding: 2rem 1rem;
+  font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.ranking-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.ranking-header {
+  text-align: center;
+  margin-right: 15rem;
+  margin-left: 15rem;
+  margin-bottom: 3rem;
+  background: var(--gradient-instagram);
+  padding: 1.5rem 1rem;
+  border-radius: 16px;
+  color: var(--primary-white);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.ranking-header h1 {
+  font-size: 2.5rem;
+  color: var(--primary-white);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.ranking-header p {
+  font-size: 1.1rem;
+  color: var(--primary-white);
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.ranking-table-container {
+  background: var(--primary-white);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 2rem;
+  border: 2px solid #f8f9fa;
+}
+
+.ranking-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ranking-table thead {
+  background: var(--gradient-warm);
+  color: var(--primary-white);
+}
+
+.ranking-table th {
+  padding: 1.5rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--primary-white);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.ranking-table tbody tr {
+  border-bottom: 1px solid #f8f9fa;
+  transition: all 0.2s ease;
+  background-color: var(--primary-white);
+}
+
+.ranking-table tbody tr:hover {
+  background-color: #f8f9fa;
+  transform: translateX(4px);
+  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.1);
+}
+
+.ranking-table tbody tr.podium {
+  background: linear-gradient(90deg, rgba(255, 107, 107, 0.1) 0%, var(--primary-white) 100%);
+  border-left: 4px solid transparent;
+  border-image: var(--gradient-warm) 1;
+}
+
+.ranking-table tbody tr.podium:hover {
+  background: linear-gradient(90deg, rgba(255, 107, 107, 0.15) 0%, #f8f9fa 100%);
+}
+
+.ranking-table td {
+  padding: 1.25rem 1rem;
+  vertical-align: middle;
+}
+
+
+.position-col {
+  width: 80px;
+  text-align: center;
+}
+
+.country-col {
+  width: 80px;
+}
+
+.player-col {
+  width: auto;
+  min-width: 200px;
+}
+
+.date-col {
+  width: 130px;
+}
+
+.score-col {
+  width: 150px;
+  text-align: right;
+}
+
+.position-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.medal {
+  font-size: 1.2rem;
+}
+
+.position-number {
+  font-weight: 700;
+  color: var(--primary-black);
+  font-size: 1.1rem;
+}
+
+.country-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.country-flag {
+  width: 24px;
+  height: 18px;
+  object-fit: cover;
+  border-radius: 2px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.country-name {
+  display: none;
+}
+
+.player-name {
+  font-weight: 600;
+  color: var(--primary-black);
+  font-size: 1rem;
+}
+
+.game-date {
+  color: var(--secondary-gray);
+  font-weight: 400;
+}
+
+.total-score {
+  font-weight: 700;
+  color: var(--primary-blue);
+  font-size: 1.1rem;
+  font-family: 'Courier New', monospace;
+}
+
+.score-cell {
+  text-align: right;
+}
+
+/* responsive design */
+@media (max-width: 1024px) {
+  .ranking-container {
+    padding: 1.5rem 0.5rem;
+  }
+  
+  .ranking-header {
+    padding: 2rem 1.5rem;
+  }
+  
+  .ranking-header h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .ranking-table-container {
+    overflow-x: auto;
+  }
+  
+  .ranking-table {
+    min-width: 600px;
+  }
+  
+  .ranking-table th,
+  .ranking-table td {
+    padding: 1rem 0.75rem;
+  }
+  
+  .ranking-header {
+    padding: 1.5rem 1rem;
+  }
+  
+  .ranking-header h1 {
+    font-size: 1.75rem;
+  }
+  
+  .date-col {
+    width: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ranking-container {
+    padding: 1rem 0.25rem;
+  }
+  
+  .ranking-table th,
+  .ranking-table td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .ranking-header {
+    padding: 1rem 0.75rem;
+  }
+  
+  .ranking-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .position-col {
+    width: 60px;
+  }
+  
+  .score-col {
+    width: 120px;
+  }
+}
+
+@keyframes podiumGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(0, 102, 204, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(0, 102, 204, 0.4);
+  }
+}
+
+.ranking-row.podium:first-child {
+  animation: podiumGlow 4s infinite;
+}
+
+/* top3: */
+.ranking-row.podium .total-score {
+  background: var(--gradient-warm);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+}
