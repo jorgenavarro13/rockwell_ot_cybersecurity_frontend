@@ -9,85 +9,58 @@ import Footer from './components/Footer';
 import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import checkSession from './services/session.js';
+import { AuthProvider } from './context/AuthContext.jsx';
+import {ProtectedRoute} from './ProtectedRoute.jsx';
 
 function App() {
-  // mock:
-  const [usuarioLogado,setLoggin] = useState(false);
-  const [nomeUsuario,setUsername] = useState('');
-  const [usuarioAdmin,setPermissions] = useState(false);
-
-  useEffect(() => { // Use effect se ejecuta al montar el componente, 
-  // ideal para llamadas a APIs o tareas de inicialización
-    const fetchSession = async () => {
-      const data = await checkSession();
-      console.log(data);
-
-      if( data?.activeSession){
-        setLoggin(true);
-      }
-
-      if( data?.data?.username){
-        setUsername(data.data.username)
-      }
-      
-      if( data?.isAdmin){ // hay que cambiar este valor hardcodeado, tiene  que regresar un booleano el backend
-        setPermissions(true);
-      }
-    };
-    
-    fetchSession();
-
-  }, []);
-
 
   return (
-    <Router>
-      {/* //nav bar (all pages) */}
-      <Navbar
-        isLoggedIn={usuarioLogado}
-        userName={nomeUsuario}
-        isAdmin={usuarioAdmin}
-      />
+    <AuthProvider>
 
-      {/* // pages: */}
-      <div className="paginas">
-        <Routes>
-          <Route 
-            path="/" 
-            element={<Home isLoggedIn={usuarioLogado} />} 
-          />
+      <Router>
+        <Navbar/>
 
-          <Route 
-            path="/login" 
-            element={usuarioLogado ? <Navigate to="/" replace /> : <Login />} 
-          />
+        {/* // pages: */}
+        <div className="paginas">
+          <Routes>
+            <Route 
+              path="/" element={<Home />} 
+            />
 
-          <Route 
-            path="/register" 
-            element={usuarioLogado ? <Navigate to="/" replace /> : <Register />} 
-          />
+            <Route 
+              path="/login" element={ <Login />} 
+            />
 
-          <Route 
-            path="/game" 
-            element={usuarioLogado ? <Game /> : <Navigate to="/login" replace />} 
-          />
+            <Route 
+              path="/register" element={ <Register />} 
+            />
 
-          <Route 
-            path="/ranking" 
-            element={<Ranking />} 
-          />
+            <ProtectedRoute>
+              <Route 
+                path="/game" element={ <Game /> } 
+              />
+            </ProtectedRoute>
 
-          <Route
-            path="/dashboard"
-            element={usuarioLogado && usuarioAdmin ? <Dashboard /> : <Navigate to="/" replace />}
-          />
-          
-        </Routes>
 
-      </div>
+            <Route 
+              path="/ranking" element={<Ranking />} 
+            />
 
-      <Footer/>
-    </Router>
+            <AdminRoute>
+              <Route
+                path="/dashboard"  // AdminRoute, remember man
+                element={ <Dashboard /> }
+              />
+            </AdminRoute>
+
+
+          </Routes>
+
+        </div>
+
+        <Footer/>
+      </Router>
+    </AuthProvider>
   );
 }
 
