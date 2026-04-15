@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useNavigate } from 'react';
 import { Combobox } from "@headlessui/react";
 import countries from "i18n-iso-countries";
 import en from "i18n-iso-countries/langs/en.json";
@@ -18,7 +18,8 @@ const countryList = Object.entries(
 }));
 
 function Register() {
-  
+  const navigate = useNavigate(); 
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -68,7 +69,7 @@ function Register() {
       birthday:birthDate,
     };
     
-    registerUser(Usuario);
+    registerUser(Usuario, navigate);
     evento.preventDefault(); // do not reload
   };
 
