@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState,useNavigate } from 'react';
 import './Login.css';
 import { loginUser } from '../services/login.js';
 import { Link } from 'react-router-dom';
 
 function Login() {
+  const navigate = useNavigate();
+  const { login } = useAuth(); // Asegúrate de importar useAuth desde tu contexto de autenticación
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -13,10 +15,13 @@ function Login() {
   const handleEntrar = async (evento) => {
     evento.preventDefault(); // do not reload
     console.log( `Email: ${email}, Password: ${password}`); // for debugging
+    
     const res = await loginUser(email, password);
     
     if(res?.success){
-      window.location.href = "/game";
+      // navigate to home page
+      login(res.user); // Aquí actualizas el contexto con los datos del usuario
+      navigate('/game');
     } else {
       setError('Invalid email or password. Please try again.');
     }
