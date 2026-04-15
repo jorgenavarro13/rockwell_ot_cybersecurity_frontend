@@ -12,7 +12,7 @@ export function AuthProvider({ children }) {
       const data = await checkSession();
 
       if (data?.activeSession) {
-        setUser(data.data); // aquí guardas todo el user
+        setUser(data.user); // aquí guardas todo el user
       }
 
       setLoading(false);
@@ -36,6 +36,3 @@ export function AuthProvider({ children }) {
   );
 }
 
-export function useAuth() {
-  return useContext(AuthContext);
-}
