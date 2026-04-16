@@ -10,6 +10,7 @@ import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext.jsx';
 import {ProtectedRoute} from './ProtectedRoute.jsx';
+import {AdminRoute} from './AdminRoute.jsx';
 
 function App() {
 
@@ -49,9 +50,9 @@ function App() {
 
             <Route
               path="/dashboard" element={
-                <ProtectedRoute>
+                <AdminRoute>
                   <Dashboard />
-                </ProtectedRoute>
+                </AdminRoute>
               }
             />
 
