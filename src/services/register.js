@@ -1,6 +1,6 @@
-export function registerUser(Usuario,navigate){
+export async function registerUser(Usuario,navigate){
     try {
-      const respuesta =  fetch(`${import.meta.env.VITE_API}/register`, {
+      const respuesta = await fetch(`${import.meta.env.VITE_API}/register`, {
         method: "POST",
         credentials: "include",
         headers: {

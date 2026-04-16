@@ -34,23 +34,26 @@ function App() {
               path="/register" element={ <Register />} 
             />
 
-            <ProtectedRoute>
-              <Route 
-                path="/game" element={ <Game /> } 
-              />
-            </ProtectedRoute>
+            <Route 
+              path="/game" element={ 
+                <ProtectedRoute>
+                  <Game />
+                </ProtectedRoute>
+              } 
+            />
 
 
             <Route 
               path="/ranking" element={<Ranking />} 
             />
 
-            <AdminRoute>
-              <Route
-                path="/dashboard"  // AdminRoute, remember man
-                element={ <Dashboard /> }
-              />
-            </AdminRoute>
+            <Route
+              path="/dashboard" element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
 
 
           </Routes>

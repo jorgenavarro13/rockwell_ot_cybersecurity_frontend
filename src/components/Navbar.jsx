@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext.jsx';
 
 function Navbar() {
   const { user } = useAuth();
-  const isLoggedInFromContext = user !== null;
+  const isLoggedIn = user !== null;
   const userName = user?.username || '';
   const isAdmin = user?.isAdmin || false;
 

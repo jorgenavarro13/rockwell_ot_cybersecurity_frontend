@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useNavigate } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Combobox } from "@headlessui/react";
 import countries from "i18n-iso-countries";
 import en from "i18n-iso-countries/langs/en.json";
 import './Register.css';
 import {registerUser} from '../services/register.js'
 import { verifyEmailDuplicates } from '../services/verifyEmailDuplicates.js';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 
 countries.registerLocale(en);
 
