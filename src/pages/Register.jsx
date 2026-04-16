@@ -5,6 +5,7 @@ import en from "i18n-iso-countries/langs/en.json";
 import './Register.css';
 import {registerUser} from '../services/register.js'
 import { verifyEmailDuplicates } from '../services/verifyEmailDuplicates.js';
+import { Link, useNavigate} from 'react-router-dom';
 
 countries.registerLocale(en);
 
@@ -17,7 +18,8 @@ const countryList = Object.entries(
 }));
 
 function Register() {
-  
+  const navigate = useNavigate(); 
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -67,7 +69,7 @@ function Register() {
       birthday:birthDate,
     };
     
-    registerUser(Usuario);
+    registerUser(Usuario, navigate);
     evento.preventDefault(); // do not reload
   };
 
@@ -212,7 +214,7 @@ function Register() {
 
         <button type="submit">Register</button>
 
-        <p>Already have an account?  <a href="/login" className="login-link">Log in</a></p>
+        <p>Already have an account?  <Link to="/login" className="login-link">Log in</Link></p>
       </form>
     </div>
   );

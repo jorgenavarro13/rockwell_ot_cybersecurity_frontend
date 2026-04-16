@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 import {malware,ransomware,ship, phishing, legacy} from '../assets/images.js';
+import { useAuth } from '../context/AuthContext.jsx';
 
 const threats = [
   {
@@ -37,8 +38,14 @@ const stats = [
   { value: '73%', label: 'of breaches exploited weak or stolen credentials' },
 ];
 
-function Home({ isLoggedIn }) {
+function Home() {
+  const { user } = useAuth();
+  const isLoggedIn = user !== null;
+  
+  // o lo que sea que tengas en tu contexto para indicar si el usuario está logueadol
+
   return (
+
     <div className="home-container">
 
       {/* Hero Section */}

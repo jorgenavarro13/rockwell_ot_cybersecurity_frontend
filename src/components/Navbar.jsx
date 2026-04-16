@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
+import { useAuth } from '../context/AuthContext.jsx';
 
-function Navbar({ isLoggedIn, userName, isAdmin }) {
+function Navbar() {
+  const { user } = useAuth();
+  const isLoggedIn = user !== null;
+  const userName = user?.username || '';
+  const isAdmin = user?.isAdmin || false;
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
