@@ -5,7 +5,7 @@ import en from "i18n-iso-countries/langs/en.json";
 import './Register.css';
 import {registerUser} from '../services/register.js'
 import { verifyEmailDuplicates } from '../services/verifyEmailDuplicates.js';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 
 countries.registerLocale(en);
 
@@ -18,7 +18,8 @@ const countryList = Object.entries(
 }));
 
 function Register() {
-  
+  const navigate = useNavigate(); 
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -68,7 +69,7 @@ function Register() {
       birthday:birthDate,
     };
     
-    registerUser(Usuario);
+    registerUser(Usuario, navigate);
     evento.preventDefault(); // do not reload
   };
 
