@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Dashboard.css';
 
 // mock data
@@ -119,7 +119,61 @@ function Dashboard() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterRelation, setFilterRelation] = useState('');
   const [filterCountry, setFilterCountry] = useState('');
+  const scores = mockUsers.map(user => user.maxScore);
+  const minScore = Math.min(...scores);
+  const maxScore = Math.max(...scores);
+  const [filterScoreMin, setFilterScoreMin] = useState(minScore);
+  const [filterScoreMax, setFilterScoreMax] = useState(maxScore);
+  const [showScoreFilter, setShowScoreFilter] = useState(false);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'none' });
+  const scoreFilterWrapperRef = useRef(null);
+  const scoreRange = maxScore - minScore || 1;
+  const minThumbPosition = ((filterScoreMin - minScore) / scoreRange) * 100;
+  const maxThumbPosition = ((filterScoreMax - minScore) / scoreRange) * 100;
+  const isScoreFilterModified = filterScoreMin !== minScore || filterScoreMax !== maxScore;
+
+  useEffect(() => {
+    if (!showScoreFilter) {
+      return undefined;
+    }
+
+    const closeWhenOutside = (event) => {
+      if (!scoreFilterWrapperRef.current?.contains(event.target)) {
+        setShowScoreFilter(false);
+      }
+    };
+
+    document.addEventListener('pointerdown', closeWhenOutside);
+    document.addEventListener('focusin', closeWhenOutside);
+
+    return () => {
+      document.removeEventListener('pointerdown', closeWhenOutside);
+      document.removeEventListener('focusin', closeWhenOutside);
+    };
+  }, [showScoreFilter]);
+
+  const handleMinScoreChange = (value) => {
+    const nextMin = Number(value);
+    if (filterScoreMin === filterScoreMax && nextMin > filterScoreMin) {
+      setFilterScoreMax(nextMin);
+      return;
+    }
+    setFilterScoreMin(Math.min(nextMin, filterScoreMax));
+  };
+
+  const handleMaxScoreChange = (value) => {
+    const nextMax = Number(value);
+    if (filterScoreMin === filterScoreMax && nextMax < filterScoreMax) {
+      setFilterScoreMin(nextMax);
+      return;
+    }
+    setFilterScoreMax(Math.max(nextMax, filterScoreMin));
+  };
+
+  const resetScoreFilter = () => {
+    setFilterScoreMin(minScore);
+    setFilterScoreMax(maxScore);
+  };
 
   const relations = [...new Set(mockUsers.map(user => user.relation))];
   const countries = [...new Set(mockUsers.map(user => user.country.name))];
@@ -132,8 +186,9 @@ function Dashboard() {
     
     const matchesRelation = filterRelation === '' || user.relation === filterRelation;
     const matchesCountry = filterCountry === '' || user.country.name === filterCountry;
+    const matchesScoreRange = user.maxScore >= filterScoreMin && user.maxScore <= filterScoreMax;
 
-    return matchesSearch && matchesRelation && matchesCountry;
+    return matchesSearch && matchesRelation && matchesCountry && matchesScoreRange;
   });
 
   // sort:
@@ -221,6 +276,65 @@ function Dashboard() {
               <option key={country} value={country}>{country}</option>
             ))}
           </select>
+
+          <div ref={scoreFilterWrapperRef} className="score-filter-wrapper">
+            <button
+              type="button"
+              className={`filter-input score-filter-toggle ${isScoreFilterModified ? 'score-filter-toggle-active' : ''}`}
+              onClick={() => setShowScoreFilter(!showScoreFilter)}
+            >
+              {isScoreFilterModified ? `Score range: ${filterScoreMin} - ${filterScoreMax}` : 'All scores'}
+            </button>
+
+            {showScoreFilter && (
+              <div className="score-range-panel">
+                <div className="score-range-header">
+                  <span className="score-range-label">Range: <strong>{filterScoreMin}</strong> - <strong>{filterScoreMax}</strong></span>
+                  <button
+                    type="button"
+                    className="score-reset-button"
+                    onClick={resetScoreFilter}
+                  >
+                    Reset
+                  </button>
+                </div>
+
+                <div
+                  className="score-dual-slider"
+                  style={{
+                    '--min-percent': `${minThumbPosition}%`,
+                    '--max-percent': `${maxThumbPosition}%`
+                  }}
+                >
+                  <div className="score-slider-track" />
+                  <div className="score-slider-selected" />
+                  <input
+                    id="min-score-slider"
+                    type="range"
+                    min={minScore}
+                    max={maxScore}
+                    value={filterScoreMin}
+                    onChange={(e) => handleMinScoreChange(e.target.value)}
+                    className="score-slider score-slider-min"
+                  />
+                  <input
+                    id="max-score-slider"
+                    type="range"
+                    min={minScore}
+                    max={maxScore}
+                    value={filterScoreMax}
+                    onChange={(e) => handleMaxScoreChange(e.target.value)}
+                    className="score-slider score-slider-max"
+                  />
+                </div>
+
+                <div className="score-range-limits">
+                  <span>{minScore}</span>
+                  <span>{maxScore}</span>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="dashboard-table-container">
