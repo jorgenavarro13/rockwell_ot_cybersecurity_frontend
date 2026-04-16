@@ -1,7 +1,7 @@
 import { useAuth } from "./context/AuthContext";
 import { Navigate } from "react-router-dom";
 
-function AdminRoute({ children }) {
+export function AdminRoute({ children }) {
   const { user, loading } = useAuth();
 
   if (loading) return <p>Cargando...</p>;
