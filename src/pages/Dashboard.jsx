@@ -167,10 +167,124 @@ function Dashboard() {
     return sortableUsers;
   }, [filteredUsers, sortConfig]);
 
+  const dashboardStats = React.useMemo(() => {
+    const totalUsers = users.length;
+
+    const companyCounts = new Map();
+    const countryCounts = new Map();
+    const scoredUsers = [];
+
+    users.forEach((user) => {
+      const companyName = (user.company ?? '').trim();
+      const countryName = (user.country?.name ?? '').trim();
+      const score = Number(user.maxScore);
+
+      if (companyName) {
+        companyCounts.set(companyName, (companyCounts.get(companyName) ?? 0) + 1);
+      }
+
+      if (countryName) {
+        countryCounts.set(countryName, (countryCounts.get(countryName) ?? 0) + 1);
+      }
+
+      if (Number.isFinite(score) && score > 0) {
+        scoredUsers.push(score);
+      }
+    });
+
+    const getTopEntry = (counts) => {
+      let topName = 'N/A';
+      let topCount = 0;
+
+      counts.forEach((count, name) => {
+        if (count > topCount) {
+          topName = name;
+          topCount = count;
+        }
+      });
+
+      return { name: topName, count: topCount };
+    };
+
+    const getTopCountryEntry = () => {
+      let topName = 'N/A';
+      let topCount = 0;
+      let topFlag = '';
+
+      countryCounts.forEach((count, name) => {
+        if (count > topCount) {
+          topName = name;
+          topCount = count;
+        }
+      });
+
+      if (topCount > 0) {
+        const topCountryUser = users.find((user) => (user.country?.name ?? '').trim() === topName);
+        topFlag = topCountryUser?.country?.flag ?? '';
+      }
+
+      return { name: topName, count: topCount, flag: topFlag };
+    };
+
+    const topCompany = getTopEntry(companyCounts);
+    const topCountry = getTopCountryEntry();
+    const averageScore = scoredUsers.length > 0
+      ? scoredUsers.reduce((sum, score) => sum + score, 0) / scoredUsers.length
+      : null;
+
+    return {
+      totalUsers,
+      topCompany,
+      topCountry,
+      averageScore,
+      scoredUsersCount: scoredUsers.length,
+    };
+  }, [users]);
+
   return (
     <div className="dashboard-container">
       <div className="dashboard-content">
         <h2 className="dashboard-title">Dashboard</h2>
+
+        <div className="dashboard-stats" aria-label="Dashboard statistics">
+          <article className="dashboard-stat-card">
+            <span className="dashboard-stat-label">Total users</span>
+            <strong className="dashboard-stat-value">{dashboardStats.totalUsers}</strong>
+          </article>
+
+          <article className="dashboard-stat-card">
+            <span className="dashboard-stat-label">Top Company</span>
+            <strong className="dashboard-stat-value">{dashboardStats.topCompany.name}</strong>
+            <span className="dashboard-stat-meta">{dashboardStats.topCompany.count} users</span>
+          </article>
+
+          <article className="dashboard-stat-card">
+            <span className="dashboard-stat-label">Top Country</span>
+            <strong className="dashboard-stat-value">
+              <span className="dashboard-stat-country">
+                {dashboardStats.topCountry.name}
+                {dashboardStats.topCountry.flag ? (
+                  <img
+                    src={dashboardStats.topCountry.flag}
+                    alt={dashboardStats.topCountry.name}
+                    className="dashboard-stat-flag"
+                  />
+                ) : null}
+              </span>
+            </strong>
+            <span className="dashboard-stat-meta">{dashboardStats.topCountry.count} users</span>
+          </article>
+
+          <article className="dashboard-stat-card dashboard-stat-card-accent">
+            <span className="dashboard-stat-label">Average score</span>
+            <strong className="dashboard-stat-value">
+              {dashboardStats.averageScore !== null ? dashboardStats.averageScore.toFixed(1) : 'N/A'}
+            </strong>
+            <span className="dashboard-stat-meta">
+              Among {dashboardStats.scoredUsersCount} users
+            </span>
+          </article>
+        </div>
 
         {loading && <p>Loading dashboard data...</p>}
         {!loading && error && <p>{error}</p>}
