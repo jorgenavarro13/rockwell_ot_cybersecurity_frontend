@@ -1,18 +1,49 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import { useAuth } from '../context/AuthContext.jsx';
+import { logoutSession } from '../services/session.js';
 
 function Navbar() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const isLoggedIn = user !== null;
   const userName = user?.username || '';
   const isAdmin = user?.isAdmin || false;
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const userMenuRef = useRef(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  useEffect(() => {
+    if (!isUserMenuOpen) {
+      return undefined;
+    }
+
+    const closeMenuOnOutsideClick = (event) => {
+      if (!userMenuRef.current?.contains(event.target)) {
+        setIsUserMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('pointerdown', closeMenuOnOutsideClick);
+
+    return () => {
+      document.removeEventListener('pointerdown', closeMenuOnOutsideClick);
+    };
+  }, [isUserMenuOpen]);
+
+  const handleLogout = async () => {
+    await logoutSession();
+    logout();
+    setIsUserMenuOpen(false);
+    setIsMenuOpen(false);
+    navigate('/');
   };
 
   return (
@@ -61,7 +92,23 @@ function Navbar() {
       {/* Button for login or username*/}
       <div className="navbar-right">
         {isLoggedIn ? (
-          <span className="welcome-text">Welcome, <strong>{userName}</strong>!</span>
+          <div className="user-menu" ref={userMenuRef}>
+            <button
+              type="button"
+              className="welcome-text user-menu-trigger"
+              onClick={() => setIsUserMenuOpen((current) => !current)}
+            >
+              Welcome, <strong>{userName}</strong>!
+            </button>
+
+            {isUserMenuOpen && (
+              <div className="user-menu-dropdown" role="menu" aria-label="User menu">
+                <button type="button" className="logout-button" onClick={handleLogout}>
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
         ) : (
           <Link to="/login" className="login-button">
             Login
