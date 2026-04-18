@@ -85,6 +85,8 @@
 
 .user-menu-trigger:hover {
   color: #166898;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 .user-menu-dropdown {
