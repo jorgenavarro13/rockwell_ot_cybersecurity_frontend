@@ -29,5 +29,10 @@ describe('Navbar component', () => {
             </AuthProvider>
         );
     expect(screen.getByText('About Rockwell')).toBeInTheDocument();
+    expect(screen.getByText('Ranking')).toBeInTheDocument();
+    expect(screen.queryByText('Videogame')).not.toBeInTheDocument();
+    expect(screen.queryByText('Dashboard')).not.toBeInTheDocument();
+    expect(screen.queryByText('Login')).toBeInTheDocument();
     });
+
 });
