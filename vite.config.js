@@ -5,4 +5,9 @@ import react from '@vitejs/plugin-react-swc'
 export default defineConfig({
   plugins: [react()],
   base: '/rockwell_ot_cybersecurity_frontend/',
+  test:{
+    environment: 'jsdom',
+    globals:true,
+    setupFiles: './src/test/setup.js'
+  }
 })
