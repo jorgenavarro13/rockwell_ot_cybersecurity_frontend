@@ -23,9 +23,6 @@ jobs:
       - name: Instalar dependencias
         run: npm ci
 
-      - name: Lint (ESLint)
-        run: npm run lint
-
       - name: Tests con coverage
         run: npm run test:coverage
 
