@@ -15,11 +15,6 @@ function Ranking() {
     fetchRanking();
   }, []);
 
-  useEffect(() => {
-    console.log(topPlayers);
-  }, [topPlayers]);
-
-
   return (
     
      <div className="ranking-container">

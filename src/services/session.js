@@ -16,3 +16,21 @@ export default async function checkSession(){
       return null;
   };                    
 }
+
+export async function logoutSession() {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API}/logout`, {
+      method: 'POST',
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      throw new Error(`Logout failed with status ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
