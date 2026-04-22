@@ -10,9 +10,10 @@ export async function registerUser(Usuario,navigate){
       });
 
       if (respuesta.ok) {
-        navigate('/login');
+        navigate('/game');
       } else {
-        console.error("Error registering user");
+        const errorMessage = await respuesta.json();
+        return { message: 'Registration failed. Please try again.' };
       }
 
     } catch (error) {
