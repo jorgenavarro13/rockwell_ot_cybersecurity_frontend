@@ -5,6 +5,7 @@ import en from "i18n-iso-countries/langs/en.json";
 import './Register.css';
 import {registerUser} from '../services/register.js'
 import { verifyEmailDuplicates } from '../services/verifyEmailDuplicates.js';
+import { verifyPhoneDuplicates } from '../services/verifyPhoneDuplicates.js';
 import { Link, useNavigate} from 'react-router-dom';
 
 countries.registerLocale(en);
@@ -22,7 +23,7 @@ function Register() {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState('');
+  const [error, setError] = useState('');
   const [password, setPassword] = useState('');
   const [relationToRockwell, setRelationToRockwell] = useState('');
   const [birthDate, setBirthDate] = useState('');
@@ -31,22 +32,6 @@ function Register() {
 
   const [selectedCountry, setSelectedCountry] = useState(countryList[0]);
   const [query, setQuery] = useState('');
-
-  useEffect(() => {
-      if (!email) return; 
-      
-      const timeoutId = setTimeout(async () => {
-        const exists = await verifyEmailDuplicates(email);
-        console.log(exists);
-        if(exists){
-          setEmailError('This email is already in use.');
-        } else {
-          setEmailError('');
-        }
-      }, 500);
-
-      return () => clearTimeout(timeoutId);
-  }, [email]);
 
   const filteredCountries =
     query === ""
@@ -69,7 +54,23 @@ function Register() {
       birthday:birthDate,
     };
     
-    registerUser(Usuario, navigate);
+    const checkDuplicates = async () => {
+      const emailExists = await verifyEmailDuplicates(email);
+      const phoneExists = await verifyPhoneDuplicates(phone);
+      console.log("Repeated:", emailExists || phoneExists);
+      return emailExists || phoneExists;
+    }
+
+    const areDuplicates = await checkDuplicates();
+
+    if(areDuplicates ){ 
+      setError('Email or phone number is already in use.');
+    } else {
+      const response= registerUser(Usuario, navigate);
+      if (response) {
+        setError(response.message);
+      }
+    }
     evento.preventDefault(); // do not reload
   };
 
@@ -102,7 +103,6 @@ function Register() {
           />
         </div>
 
-        {emailError && <div className="error">{emailError}</div>}
 
         <div className="input-group">
           <label htmlFor="phone">Phone: </label>
@@ -112,6 +112,7 @@ function Register() {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             placeholder="Insert your phone"
+            pattern="^\+?[0-9\s\-]{7,15}$"
           />
         </div>
 
@@ -165,6 +166,7 @@ function Register() {
             value={birthDate}
             onChange={(e) => setBirthDate(e.target.value)}
             max="2026-02-27"
+            min="1900-01-01"
             
           />
         </div>
@@ -211,6 +213,8 @@ function Register() {
             </div>
             </Combobox>
         </div>
+
+        {error && <div className="error">{error}</div>}
 
         <button type="submit">Register</button>
 
