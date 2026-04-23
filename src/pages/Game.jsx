@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './Game.css';
+import GameIntro from '../components/GameIntro/GameIntro';
 
 function Game() {
+  const [introComplete, setIntroComplete] = useState(false);
   const [isLandscape, setIsLandscape] = useState(true);
 
   useEffect(() => {
@@ -24,6 +26,8 @@ function Game() {
 
   return (
     <div className="game-page">
+      
+
       {/* rotation warning for portrait mode */}
       {!isLandscape && (
         <div className="rotation-warning">
@@ -39,10 +43,16 @@ function Game() {
       )}
 
       <div className={`game-container ${!isLandscape ? 'hidden' : ''}`}>
+
         <div className="game-frame">
-          <div className="unity-placeholder">
+
+        {!introComplete ? (
+          <GameIntro onComplete={() => setIntroComplete(true)} />
+        ) :
+
+          (<div className="unity-placeholder">
             <h2>Unity Game Loading...</h2>
-          </div>
+          </div>)}
         </div>
       </div>
     </div>
