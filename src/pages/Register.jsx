@@ -7,6 +7,7 @@ import {registerUser} from '../services/register.js'
 import { verifyEmailDuplicates } from '../services/verifyEmailDuplicates.js';
 import { verifyPhoneDuplicates } from '../services/verifyPhoneDuplicates.js';
 import { Link, useNavigate} from 'react-router-dom';
+import {useAuth} from '../context/AuthContext.jsx';
 
 countries.registerLocale(en);
 
@@ -20,6 +21,7 @@ const countryList = Object.entries(
 
 function Register() {
   const navigate = useNavigate(); 
+  const { login } = useAuth(); 
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -40,7 +42,7 @@ function Register() {
           country.name.toLowerCase().includes(query.toLowerCase())
         );
 
-  const handleRegistrar = (evento) => {
+  const handleRegistrar = async (evento) => {
     evento.preventDefault();
 
     const Usuario = {
@@ -54,11 +56,13 @@ function Register() {
       birthday:birthDate,
     };
     
-    const checkDuplicates = async () => {
-      const emailExists = await verifyEmailDuplicates(email);
-      const phoneExists = await verifyPhoneDuplicates(phone);
-      console.log("Repeated:", emailExists || phoneExists);
-      return emailExists || phoneExists;
+    const checkDuplicates =  async () => {
+      const emailExists =  await verifyEmailDuplicates(email);
+      if (phone) {
+        const phoneExists =  await verifyPhoneDuplicates(phone);
+        return emailExists || phoneExists;
+      }
+      return emailExists;
     }
 
     const areDuplicates = await checkDuplicates();
@@ -66,9 +70,14 @@ function Register() {
     if(areDuplicates ){ 
       setError('Email or phone number is already in use.');
     } else {
-      const response= registerUser(Usuario, navigate);
-      if (response) {
-        setError(response.message);
+      const registration=await registerUser(Usuario);
+      console.log(registration)
+      if (registration.success) {
+          login(registration.user);
+          navigate('/home');
+      }
+      else {
+        setError(registration.message);
       }
     }
     evento.preventDefault(); // do not reload

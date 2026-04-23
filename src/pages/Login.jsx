@@ -20,7 +20,6 @@ function Login() {
     const res = await loginUser(email, password);
     
     if(res?.success){
-      // navigate to home page
       login(res.user); // Aquí actualizas el contexto con los datos del usuario
       navigate('/game');
     } else {

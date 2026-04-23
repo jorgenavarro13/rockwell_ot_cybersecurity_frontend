@@ -1,4 +1,4 @@
-export async function registerUser(Usuario,navigate){
+export async function registerUser(Usuario){
     try {
       const respuesta = await fetch(`${import.meta.env.VITE_API}/register`, {
         method: "POST",
@@ -10,14 +10,15 @@ export async function registerUser(Usuario,navigate){
       });
 
       if (respuesta.ok) {
-        navigate('/game');
+        const respuesta2= await respuesta.json();
+        return respuesta2;
       } else {
-        const errorMessage = await respuesta.json();
-        return { message: 'Registration failed. Please try again.' };
+        return { registered: false, message: 'Registration failed. Please try again.' };
       }
 
     } catch (error) {
       console.error("Error registering user:", error);
+      return { registered: false, message: 'An error occurred. Please try again.' };
     }
 
   };
