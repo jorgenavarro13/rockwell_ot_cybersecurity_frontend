@@ -54,10 +54,10 @@ function Ranking() {
                     <span className="player-name">{player.playername}</span>
                   </td>
                   <td className="date-cell">
-                    <span className="game-date">{new Date(player.date).toLocaleDateString()}</span>
+                    <span className="game-date">{player.date ? new Date(player.date).toLocaleDateString() : '----'}</span>
                   </td>
                   <td className="score-cell">
-                    <span className="total-score">{player.score}</span>
+                    <span className="total-score">{player.date ? player.score : ''}</span>
                   </td>
                 </tr>
               ))}
