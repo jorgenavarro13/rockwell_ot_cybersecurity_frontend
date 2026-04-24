@@ -2,19 +2,28 @@ import React, { useState, useEffect } from 'react';
 import './Game.css';
 import GameIntro from '../components/GameIntro/GameIntro';
 import { Unity, useUnityContext } from "react-unity-webgl";
+import { useAuth } from '../context/AuthContext';
 
 function Game() {
+  const { user } = useAuth(); // user?.username,
   const [introComplete, setIntroComplete] = useState(false);
   const [isLandscape, setIsLandscape] = useState(true);
 
   const BASE_URL = import.meta.env.VITE_GAME_URL;
 
-  const { unityProvider, isLoaded, loadingProgression } = useUnityContext({
-    loaderUrl:    `${BASE_URL}/BuildTest.loader.js`,
-    dataUrl:      `${BASE_URL}/BuildTest.data`,
-    frameworkUrl: `${BASE_URL}/BuildTest.framework.js`,
-    codeUrl:      `${BASE_URL}/BuildTest.wasm`,
+  const { unityProvider, isLoaded, loadingProgression , sendMessage } = useUnityContext({
+    loaderUrl:    `${BASE_URL}/BuildV1.0.loader.js`,
+    dataUrl:      `${BASE_URL}/BuildV1.0.data`,
+    frameworkUrl: `${BASE_URL}/BuildV1.0.framework.js`,
+    codeUrl:      `${BASE_URL}/BuildV1.0.wasm`,
   });
+
+  useEffect(() => {
+    if (isLoaded && user?.user_id) {
+      console.log("Sending user ID to Unity:", parseInt(user.user_id));
+      sendMessage("GameManager", "SetUserId", parseInt(user.user_id));
+    }
+  }, [isLoaded, user]);
 
   useEffect(() => {
     const checkOrientation = () => {
