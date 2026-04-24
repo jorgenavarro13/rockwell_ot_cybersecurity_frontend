@@ -25,11 +25,13 @@ function Game() {
     };
   }, []);
 
+  const BASE_URL = import.meta.env.VITE_GAME_URL;
+  
   const { unityProvider } = useUnityContext({
-    loaderUrl:    `${import.meta.env.GAME_URL}/BuildTest.loader.js`,
-    dataUrl:      `${import.meta.env.GAME_URL}/BuildTest.data`,
-    frameworkUrl: `${import.meta.env.GAME_URL}/BuildTest.framework.js`,
-    codeUrl:      `${import.meta.env.GAME_URL}/BuildTest.wasm`,
+    loaderUrl:    `${BASE_URL}/BuildTest.loader.js`,
+    dataUrl:      `${BASE_URL}/BuildTest.data`,
+    frameworkUrl: `${BASE_URL}/BuildTest.framework.js`,
+    codeUrl:      `${BASE_URL}/BuildTest.wasm`,
   });
 
   return (
