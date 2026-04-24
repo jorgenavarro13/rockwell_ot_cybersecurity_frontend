@@ -11,19 +11,19 @@ const cards = [
     headerImageAlt: 'Your ship',
     items: [
       {
-        tag: 'SHIELD',
+        tag: 'BACK UP',
         description:
-          'Deploys an industrial firewall barrier across your perimeter. In OT environments, firewalls segment networks to prevent threats from reaching critical systems — just like this shield stops enemies before they reach you.',
+          'Restores 1 unit of your ship’s health. In real OT environments, regular backups are crucial for recovery after an attack — they can be the difference between a minor setback and a catastrophic failure.',
       },
       {
-        tag: 'SPEED BOOST',
+        tag: 'UPDATE',
         description:
-          "Activates accelerated incident response protocols. In real OT attacks, the faster your team detects and responds to a threat, the less damage it causes — speed isn't just an advantage, it's survival.",
+          "Updates your ship speed and fire rate. Just like keeping OT systems updated with the latest patches and firmware is essential to defend against evolving cyber threats. If you get hit by ransomware bullets, your speed will drop, simulating the slowdown caused by an attack. Grab an update to recover and keep moving.",
       },
       {
-        tag: 'RAPID FIRE',
+        tag: 'FIREWALL',
         description:
-          'Simulates automated threat mitigation — firing back faster than any human could manually. In OT security, automated countermeasures respond to attacks in milliseconds, long before an operator could react.',
+          'Actives a last line of defense. In the real world, a strong firewall can protect OT networks from unauthorized access and attacks. Use this power-up strategically to survive intense enemy waves.',
       },
     ],
   },
