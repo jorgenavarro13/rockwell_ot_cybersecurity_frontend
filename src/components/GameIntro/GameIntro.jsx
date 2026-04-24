@@ -13,17 +13,17 @@ const cards = [
       {
         tag: 'SHIELD',
         description:
-          'Deploys a barrier at the bottom of the screen. Any enemy that touches it is destroyed — protecting you instead of triggering game over.',
+          'Deploys an industrial firewall barrier across your perimeter. In OT environments, firewalls segment networks to prevent threats from reaching critical systems — just like this shield stops enemies before they reach you.',
       },
       {
         tag: 'SPEED BOOST',
         description:
-          "Increases your ship's movement speed, letting you dodge enemy fire and reposition faster.",
+          "Activates accelerated incident response protocols. In real OT attacks, the faster your team detects and responds to a threat, the less damage it causes — speed isn't just an advantage, it's survival.",
       },
       {
         tag: 'RAPID FIRE',
         description:
-          'Boosts your fire rate beyond the default, letting you unleash a faster stream of shots.',
+          'Simulates automated threat mitigation — firing back faster than any human could manually. In OT security, automated countermeasures respond to attacks in milliseconds, long before an operator could react.',
       },
     ],
   },
