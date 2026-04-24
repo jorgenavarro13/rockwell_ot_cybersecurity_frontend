@@ -37,7 +37,7 @@ jobs:
         run: npm run build
         env:
           VITE_API: ${{ secrets.VITE_API }}
-          GAME_URL: ${{ secrets.GAME_URL }}
+          VITE_GAME_URL: ${{ secrets.VITE_GAME_URL }} 
 
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
