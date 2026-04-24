@@ -12,10 +12,10 @@ function Game() {
   const BASE_URL = import.meta.env.VITE_GAME_URL;
 
   const { unityProvider, isLoaded, loadingProgression , sendMessage } = useUnityContext({
-    loaderUrl:    `${BASE_URL}/BuildV1.2.loader.js`,
-    dataUrl:      `${BASE_URL}/BuildV1.2.data`,
-    frameworkUrl: `${BASE_URL}/BuildV1.2.framework.js`,
-    codeUrl:      `${BASE_URL}/BuildV1.2.wasm`,
+    loaderUrl:    `${BASE_URL}/Build1.2.loader.js`,
+    dataUrl:      `${BASE_URL}/Build1.2.data`,
+    frameworkUrl: `${BASE_URL}/Build1.2.framework.js`,
+    codeUrl:      `${BASE_URL}/Build1.2.wasm`,
   });
 
   useEffect(() => {
