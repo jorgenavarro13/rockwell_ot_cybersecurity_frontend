@@ -103,7 +103,7 @@ function GameIntro({ onComplete }) {
       <div className="gi-wrapper">
         <div className="gi-header">
           <span className="gi-header-bracket">[</span>
-          <span className="gi-header-text">GRID DEFENDER</span>
+          <span className="gi-header-text">CYBER-ATTACK </span>
           <span className="gi-header-bracket">]</span>
         </div>
 
@@ -159,7 +159,7 @@ function GameIntro({ onComplete }) {
               &lt; BACK
             </button>
             <button className="gi-btn gi-btn--next" onClick={handleNext}>
-              {isLast ? 'START GAME' : 'NEXT &gt;'}
+              {isLast ? 'START GAME' : 'NEXT'}
             </button>
           </div>
         </div>
