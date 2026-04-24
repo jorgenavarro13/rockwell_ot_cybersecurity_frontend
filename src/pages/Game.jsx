@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './Game.css';
+import GameIntro from '../components/GameIntro/GameIntro';
+import { Unity, useUnityContext } from "react-unity-webgl";
 
 function Game() {
+  const [introComplete, setIntroComplete] = useState(false);
   const [isLandscape, setIsLandscape] = useState(true);
 
   useEffect(() => {
@@ -22,8 +25,17 @@ function Game() {
     };
   }, []);
 
+  const { unityProvider } = useUnityContext({
+    loaderUrl:    `${import.meta.env.GAME_URL}/BuildTest.loader.js`,
+    dataUrl:      `${import.meta.env.GAME_URL}/BuildTest.data`,
+    frameworkUrl: `${import.meta.env.GAME_URL}/BuildTest.framework.js`,
+    codeUrl:      `${import.meta.env.GAME_URL}/BuildTest.wasm`,
+  });
+
   return (
     <div className="game-page">
+      
+
       {/* rotation warning for portrait mode */}
       {!isLandscape && (
         <div className="rotation-warning">
@@ -39,10 +51,19 @@ function Game() {
       )}
 
       <div className={`game-container ${!isLandscape ? 'hidden' : ''}`}>
+
         <div className="game-frame">
-          <div className="unity-placeholder">
-            <h2>Unity Game Loading...</h2>
-          </div>
+
+        {!introComplete ? (
+          <GameIntro onComplete={() => setIntroComplete(true)} />
+        ) :
+
+          (<div className="unity-placeholder">
+            <Unity 
+            unityProvider={unityProvider}
+            style={{ width: "100%", height: "100%" }}
+            />
+          </div>)}
         </div>
       </div>
     </div>
