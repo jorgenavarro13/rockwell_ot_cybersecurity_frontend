@@ -19,6 +19,13 @@ function Game() {
   });
 
   useEffect(() => {
+    if (isLoaded && user?.user_id) {
+      console.log("Sending user ID to Unity:", parseInt(user.user_id));
+      sendMessage("GameManager", "SetUserId", parseInt(user.user_id));
+    }
+  }, [isLoaded, user]);
+
+  useEffect(() => {
     const checkOrientation = () => {
       const isLandscapeMode = window.innerWidth > window.innerHeight;
       setIsLandscape(isLandscapeMode);
