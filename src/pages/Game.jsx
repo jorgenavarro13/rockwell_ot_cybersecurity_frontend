@@ -18,11 +18,27 @@ function Game() {
     codeUrl:      `${BASE_URL}/Build1.2.wasm`,
   });
 
+    useEffect(() => {
+    // Expón el callback ANTES de que Unity lo necesite
+    window.onUnityUserIdReceived = (id) => {
+      console.log("✅ Unity confirmó userId recibido:", id);
+    };
+
+    return () => {
+      delete window.onUnityUserIdReceived;
+    };
+  }, []);
+
   useEffect(() => {
-    if (isLoaded && user?.user_id) {
-      console.log("Sending user ID to Unity:", parseInt(user.user_id));
+  if (isLoaded && user?.user_id) {
+    // Dale un tick extra para que la escena esté lista
+    const timer = setTimeout(() => {
+      console.log("📤 Enviando userId:", parseInt(user.user_id));
       sendMessage("GameManager", "SetUserId", parseInt(user.user_id));
-    }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }
   }, [isLoaded, user]);
 
   useEffect(() => {
