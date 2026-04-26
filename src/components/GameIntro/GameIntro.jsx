@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './GameIntro.css';
-import { ship, malware, ransomware } from '../../assets/images';
+import { ship, malware, ransomware, backup, firewall, upgrade } from '../../assets/images';
 
 const cards = [
   {
