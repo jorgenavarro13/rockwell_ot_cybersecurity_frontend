@@ -27,10 +27,12 @@ function User() {
       setLoading(true);
 
       const fetchProfile = async () => {
-      const res = await getRanking();
-      setProfile(res);
+        console.log("📥 Fetching profile for userId:", user.user_id);
+        const res = await getUserProfile(user.user_id);
+        setProfile(res);
       }
-
+    
+      await fetchProfile();
       // const historyRes = async () => {
       //   const history = await getUserGameHistory(user.user_id);
       //   setGameHistory(history);
