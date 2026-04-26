@@ -6,20 +6,39 @@ const cards = [
   {
     id: 'powerups',
     title: 'POWERUPS',
-    subtitle: 'Collect these to gain an edge',
-    headerImage: ship,
+    subtitle: 'Recover health and boost your stats',
+    headerImage: backup,
     headerImageAlt: 'Your ship',
     items: [
       {
         tag: 'BACK UP',
         description:
           'Restores 1 unit of your ship’s health. In real OT environments, regular backups are crucial for recovery after an attack — they can be the difference between a minor setback and a catastrophic failure.',
-      },
+        
+      }
+    ],
+  },
+  {
+    id: 'powerups',
+    title: 'POWERUPS',
+    subtitle: 'Recover health and boost your stats',
+    headerImage: upgrade,
+    headerImageAlt: 'Your ship',
+    items: [
       {
         tag: 'UPDATE',
         description:
           "Updates your ship speed and fire rate. Just like keeping OT systems updated with the latest patches and firmware is essential to defend against evolving cyber threats. If you get hit by ransomware bullets, your speed will drop, simulating the slowdown caused by an attack. Grab an update to recover and keep moving.",
-      },
+      }
+    ],
+  },
+  {
+    id: 'powerups',
+    title: 'POWERUPS',
+    subtitle: 'Recover health and boost your stats',
+    headerImage: firewall,
+    headerImageAlt: 'Your ship',
+    items: [
       {
         tag: 'FIREWALL',
         description:
@@ -110,7 +129,10 @@ function GameIntro({ onComplete }) {
         <div className="gi-card" key={animKey}>
           <div className="gi-card-title-row">
             <span className="gi-card-num">0{current + 1} / 0{cards.length}</span>
-            <h2 className="gi-card-title">{card.title}</h2>
+            <div>
+              <h2 className="gi-card-title">{card.title}</h2>
+              <p className="gi-card-subtitle">{card.subtitle}</p> 
+            </div>
             {card.headerImage && (
               <img
                 className="gi-header-img"
@@ -119,7 +141,6 @@ function GameIntro({ onComplete }) {
               />
             )}
           </div>
-          <p className="gi-card-subtitle">{card.subtitle}</p>
 
           <div className="gi-items">
             {card.items.map((item) => (
