@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import './User.css';
 import { useAuth } from '../context/AuthContext.jsx';
-import { getUserProfile, getUserGameHistory } from '../services/user.js';
+import { getUserProfile} from '../services/user.js';
+// , getUserGameHistory 
 import {
   ResponsiveContainer,
   LineChart,
@@ -30,10 +31,10 @@ function User() {
       setProfile(res);
       }
 
-      const historyRes = async () => {
-        const history = await getUserGameHistory(user.user_id);
-        setGameHistory(history);
-      };
+      // const historyRes = async () => {
+      //   const history = await getUserGameHistory(user.user_id);
+      //   setGameHistory(history);
+      // };
 
       setLoading(false);
     };
@@ -42,7 +43,7 @@ function User() {
   }, [user]);
 
   // games played from user info
-  const gamesPlayed = profile?.gamesPlayed ?? 0;
+  const gamesPlayed = profile?.gamesplayed ?? 0;
 
   const maxScore = useMemo(
     () => (gameHistory.length > 0 ? Math.max(...gameHistory.map((g) => g.score)) : 0),
@@ -75,14 +76,14 @@ function User() {
             {/* Profile Card */}
             <section className="user-profile-card">
               <div className="user-avatar" aria-hidden="true">
-                {user.username?.charAt(0).toUpperCase()}
+                {user.name?.charAt(0).toUpperCase()}
               </div>
 
               <div className="user-profile-info">
                 <h3 className="user-profile-name">
-                  {profile?.name ?? user.username}
+                  {profile?.name ?? user.name}
                 </h3>
-                <p className="user-profile-username">@{user.username}</p>
+                <p className="user-profile-username">@{profile?.username}</p>
                 <p className="user-profile-email">{user.email}</p>
 
                 {profile?.country && (
@@ -101,23 +102,23 @@ function User() {
                 <div className="user-profile-meta-grid">
                   <span className="user-meta-label">Company</span>
                   <span className="user-meta-value">
-                    {profileForbidden ? 'N/A' : (profile?.company || 'N/A')}
+                    {profile?.company || 'N/A'}
                   </span>
 
                   <span className="user-meta-label">Status</span>
                   <span className="user-meta-value">
-                    {profileForbidden || profile?.state == null ? (
+                    { profile?.is_active == null ? (
                       'N/A'
                     ) : (
-                      <span className={`status-badge ${profile.state ? 'status-active' : 'status-inactive'}`}>
-                        {profile.state ? 'Active' : 'Inactive'}
+                      <span className={`status-badge ${profile.is_active ? 'status-active' : 'status-inactive'}`}>
+                        {profile.is_active ? 'Active' : 'Inactive'}
                       </span>
                     )}
                   </span>
 
                   <span className="user-meta-label">Role</span>
                   <span className="user-meta-value">
-                    {profileForbidden ? 'N/A' : (profile?.type_of_user || 'N/A')}
+                    {profile?.type_of_user || 'N/A'}
                   </span>
                 </div>
               </div>
@@ -148,11 +149,11 @@ function User() {
                 <span className="dashboard-stat-label">Country</span>
                 <strong className="dashboard-stat-value">
                   <span className="dashboard-stat-country">
-                    {user?.name ?? 'N/A'}
-                    {user?.flag && (
+                    {profile?.country?.name ?? 'N/A'}
+                    {profile?.country?.flag && (
                       <img
-                        src={user.flag}
-                        alt={user.name}
+                        src={profile.country.flag}
+                        alt={profile.country.name}
                         className="dashboard-stat-flag"
                       />
                     )}
