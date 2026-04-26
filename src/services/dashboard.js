@@ -1,7 +1,7 @@
 export async function fetchDashboardData() {
     try {
         const [usersResponse, rankingResponse] = await Promise.all([
-            fetch(`${import.meta.env.VITE_API}/user`, {
+            fetch(`${import.meta.env.VITE_API}/users`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

@@ -4,6 +4,7 @@ import Game from './pages/Game';
 import Ranking from './pages/Ranking';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
+import User from './pages/User';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import React, { useState, useEffect } from 'react';
@@ -56,8 +57,17 @@ function App() {
               }
             />
 
-            <Route 
-              path="*" element={<Navigate to="/" />} 
+            <Route
+              path="/user"
+              element={
+                <ProtectedRoute>
+                  <User />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="*" element={<Navigate to="/" />}
             />
 
           </Routes>

@@ -1,0 +1,239 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-black: #000000;
+  --primary-white: #ffffff;
+  --primary-blue: #0066cc;
+  --secondary-gray: #6c757d;
+  --gradient-warm: linear-gradient(90deg, #f37021 0%, #d11242 50%, #a60033 100%);
+  --bg-color: #f4f6f9;
+}
+
+.user-container {
+  min-height: 80vh;
+  background-color: var(--primary-white);
+  padding: 2rem 1rem;
+  font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.user-content {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.user-title {
+  font-size: 2rem;
+  color: var(--primary-black);
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
+
+/* Profile Card */
+.user-profile-card {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  border: 1px solid #e9ecef;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  margin-bottom: 1.5rem;
+}
+
+.user-avatar {
+  width: 72px;
+  height: 72px;
+  min-width: 72px;
+  border-radius: 50%;
+  background: var(--gradient-warm);
+  color: var(--primary-white);
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+}
+
+.user-profile-name {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--primary-black);
+  margin: 0;
+}
+
+.user-profile-username {
+  font-size: 0.95rem;
+  color: var(--primary-blue);
+  font-weight: 600;
+  margin: 0;
+}
+
+.user-profile-email {
+  font-size: 0.92rem;
+  color: var(--secondary-gray);
+  margin: 0;
+}
+
+.user-profile-country {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.92rem;
+  color: #495057;
+  margin-top: 0.25rem;
+}
+
+.user-profile-flag {
+  width: 24px;
+  height: 18px;
+  object-fit: cover;
+  border-radius: 2px;
+  border: 1px solid #e9ecef;
+}
+
+.user-profile-meta-grid {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.25rem 1rem;
+  margin-top: 0.75rem;
+}
+
+.user-meta-label {
+  color: #6c757d;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.user-meta-value {
+  font-size: 0.92rem;
+  color: #333;
+}
+
+/* Stat Cards */
+.user-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.user-stat-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  border: 1px solid #e9ecef;
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-height: 120px;
+}
+
+/* Chart Section */
+.user-chart-section {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  border: 1px solid #e9ecef;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  margin-bottom: 1.5rem;
+}
+
+.user-chart-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.user-chart-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary-black);
+  margin: 0;
+}
+
+.user-chart-subtitle {
+  font-size: 0.85rem;
+  color: var(--secondary-gray);
+}
+
+.user-chart-wrapper {
+  width: 100%;
+}
+
+.user-chart-empty {
+  text-align: center;
+  color: var(--secondary-gray);
+  font-style: italic;
+  padding: 2rem 0;
+}
+
+/* History Section */
+.user-history-section {
+  margin-bottom: 2rem;
+}
+
+/* Loading / error states */
+.user-loading,
+.user-error {
+  text-align: center;
+  color: var(--secondary-gray);
+  padding: 2rem 0;
+}
+
+.user-error {
+  color: #721c24;
+}
+
+@media (max-width: 768px) {
+  .user-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .user-profile-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .user-profile-meta-grid {
+    text-align: left;
+  }
+
+  .user-profile-country {
+    justify-content: center;
+  }
+
+  .user-title {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .user-chart-header {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .user-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .user-stat-card {
+    min-height: auto;
+  }
+}
