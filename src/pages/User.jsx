@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import './User.css';
 import { useAuth } from '../context/AuthContext.jsx';
-import { getUserProfile} from '../services/user.js';
+import { getUserProfile, getUserGameHistory } from '../services/user.js';
 // , getUserGameHistory 
 import {
   ResponsiveContainer,
@@ -33,11 +33,13 @@ function User() {
       }
     
       await fetchProfile();
-      // const historyRes = async () => {
-      //   const history = await getUserGameHistory(user.user_id);
-      //   setGameHistory(history);
-      // };
+      
+       const historyRes = async () => {
+         const history = await getUserGameHistory(user.user_id);
+         setGameHistory(history);
+       };
 
+      await historyRes();
       setLoading(false);
     };
 
@@ -78,14 +80,14 @@ function User() {
             {/* Profile Card */}
             <section className="user-profile-card">
               <div className="user-avatar" aria-hidden="true">
-                {user.name?.charAt(0).toUpperCase()}
+                {profile.name?.charAt(0).toUpperCase()}
               </div>
 
               <div className="user-profile-info">
                 <h3 className="user-profile-name">
                   {profile?.name ?? user.name}
                 </h3>
-                <p className="user-profile-username">@{profile?.username}</p>
+                <p className="user-profile-username">@{profile?.name}</p>
                 <p className="user-profile-email">{user.email}</p>
 
                 {profile?.country && (
@@ -118,7 +120,7 @@ function User() {
                     )}
                   </span>
 
-                  <span className="user-meta-label">Role</span>
+                  <span className="user-meta-label">Rockwell Related</span>
                   <span className="user-meta-value">
                     {profile?.type_of_user || 'N/A'}
                   </span>
