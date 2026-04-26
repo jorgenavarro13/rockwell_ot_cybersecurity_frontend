@@ -43,9 +43,10 @@ function Register() {
 
   useEffect(() => {
     if (query === '') {
-      setSelectedCountry(countryList[0]);
+      setSelectedCountry(countryList[223]);
     }
   }, [query]);
+
   const filteredCountries =
     query === ""
       ? countryList
