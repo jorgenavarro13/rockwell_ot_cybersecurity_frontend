@@ -50,18 +50,25 @@ const cards = [
     id: 'enemies',
     title: 'ENEMIES',
     subtitle: 'Know your threats',
+    headerImage: malware,
+    headerImageAlt: 'Malware enemy',
     items: [
       {
         tag: 'MALWARE',
-        image: malware,
-        imageAlt: 'Malware enemy',
         description:
           'Malicious software designed to disrupt, damage, or gain unauthorized access to industrial control systems. Eliminate it before it reaches you.',
       },
+    ],
+  },
+  {
+    id: 'enemies',
+    title: 'ENEMIES',
+    subtitle: 'Know your threats',
+    headerImage: ransomware,
+    headerImageAlt: 'Ransomware enemy',
+    items: [
       {
         tag: 'RANSOMWARE',
-        image: ransomware,
-        imageAlt: 'Ransomware enemy',
         description:
           'Encrypts critical operational data and demands payment for its release. A single hit can shut down entire facilities. Do not let it through.',
       },
@@ -134,11 +141,11 @@ function GameIntro({ onComplete }) {
               <p className="gi-card-subtitle">{card.subtitle}</p> 
             </div>
             {card.headerImage && (
-              <img
-                className="gi-header-img"
-                src={card.headerImage}
-                alt={card.headerImageAlt}
-              />
+                <img
+                  className="gi-header-img"
+                  src={card.headerImage}
+                  alt={card.headerImageAlt}
+                />
             )}
           </div>
 

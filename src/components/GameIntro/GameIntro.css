@@ -137,7 +137,7 @@
 /* ─── Header image (ship gif on Powerups / How to Play) ───────────── */
 .gi-header-img {
   margin-left: auto;
-  height: 100px;
+  height: 200px;
   width: auto;
   image-rendering: pixelated;
   filter: drop-shadow(0 0 6px rgba(0, 255, 255, 0.5));
