@@ -35,6 +35,18 @@ function Register() {
   const [selectedCountry, setSelectedCountry] = useState(countryList[0]);
   const [query, setQuery] = useState('');
 
+  useEffect(() => {
+      if(email && email.endsWith('@rockwellautomation.com')) {
+        setRelationToRockwell("Employee");
+      }
+  }, [email]);
+
+  useEffect(() => {
+    if (query === '') {
+      setSelectedCountry(countryList[223]);
+    }
+  }, [query]);
+
   const filteredCountries =
     query === ""
       ? countryList
@@ -145,11 +157,15 @@ function Register() {
             onChange={(e) => setRelationToRockwell(e.target.value)}
             required
           >
-            // These options are just examples, we need an array of possible relations to rockwell to map here
-            <option value="">Select your relation</option>
-            <option value="Employee">Employee</option>
-            <option value="Client">Client</option>
-            <option value="Not related">Not related</option>
+            {(email && email.endsWith('@rockwellautomation.com')) ? (
+              <option value="Employee">Employee</option>
+            ) : (
+              <>
+                <option value="">Select your relation</option>
+                <option value="Client">Client</option>
+                <option value="Not related">Not related</option>
+              </>
+            )}
           </select>
         </div>
 
