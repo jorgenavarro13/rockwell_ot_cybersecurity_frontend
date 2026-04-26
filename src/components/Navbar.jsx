@@ -103,6 +103,13 @@ function Navbar() {
 
             {isUserMenuOpen && (
               <div className="user-menu-dropdown" role="menu" aria-label="User menu">
+                <Link
+                  to="/user"
+                  className="user-menu-item"
+                  onClick={() => setIsUserMenuOpen(false)}
+                >
+                  My Profile
+                </Link>
                 <button type="button" className="logout-button" onClick={handleLogout}>
                   Logout
                 </button>
