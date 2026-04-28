@@ -10,6 +10,7 @@ function Game() {
   const [isLandscape, setIsLandscape] = useState(true);
 
   const BASE_URL = import.meta.env.VITE_GAME_URL;
+  // AWS instace deploy 
 
   const { unityProvider, isLoaded, loadingProgression , sendMessage } = useUnityContext({
     loaderUrl:    `${BASE_URL}/CyberAttack.loader.js`,
